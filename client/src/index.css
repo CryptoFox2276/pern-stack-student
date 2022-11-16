@@ -11,3 +11,103 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+/* Dashboard */
+.dashboard {
+  padding-top: 80px;
+  line-height: 40px;
+}
+
+.dashboard .button {
+  background-color: #0d6efd;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  padding: 20px 30px;
+  margin: 15px;
+  max-width: 15%;
+  width: 100%;
+  font-size: 1.5rem;
+  word-wrap: break-word;
+  transition: .4s;
+  border: 1px solid #0d6efd;
+}
+.dashboard .button:hover {
+  /* border: 1px solid #0d6efd; */
+  color: #0d6efd;
+  background-color: white;
+  /* box-shadow: 0px 5px 2px 5px lightgrey; */
+  transition: .4s;
+}
+
+.dashboard .title {
+  padding: 8rem 0;
+}
+.dashboard .title h1 {
+  max-width: 80%;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  padding: 2.5rem;
+  width: auto;
+  word-wrap: break-word;
+  text-align: center;
+  font-size: 3rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .dashboard .button {
+    max-width: 30%;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .dashboard .button {
+    max-width: 50%;
+    width: 100%;
+  }
+  .dashboard .title h1 {
+    max-width: 100%;
+  }
+}
+
+/* Individual Page */
+.rounded {
+  border-radius: 50px !important;
+}
+.tf-section {
+  padding-top: 8rem;
+}
+
+.individual-page {
+  padding-top: 20px;
+}
+
+.individual-page .select-box {
+  width: 50%;
+}
+
+.individual-page .label-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.individual-page .label-text {
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .individual-page .select-box {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .individual-page .select-box {
+    width: 100%;
+  }
+}
