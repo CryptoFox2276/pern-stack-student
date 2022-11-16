@@ -111,3 +111,46 @@ code {
     width: 100%;
   }
 }
+table thead {
+  border-top: 2px solid darkgray !important;
+  border-bottom: 2px solid darkgray !important;
+}
+table tfoot {
+  border-bottom: 2px solid darkgray !important;
+}
+table thead tr th {
+  border-bottom: 2px solid darkgray !important;
+}
+table tbody {
+  border-top: 2px solid darkgray !important;
+}
+table thead th{
+  max-width: 11% !important;
+  width: 100%;
+  text-align: left;
+  font-size: 0.9rem;
+}
+table tfoot th {
+  max-width: 11% !important;
+  width: 100%;
+  text-align: left;
+  font-size: 0.9rem;
+}
+table tbody tr {
+  border: none;
+  border-bottom: 0px solid;
+  border-top: 0px solid;
+}
+table tbody tr td {
+  max-width: 11% !important;
+  width: 100%;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+  font-size: 0.9rem;
+  border-bottom: 0px solid !important;
+  border-top: 0px solid !important;
+}
+table .row-title {
+  border-right: 2px solid darkgray !important;
+}
+
