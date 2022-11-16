@@ -1,9 +1,12 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const IndividualPage = () => {
+    useEffect(()=>{
+        document.title = "Individual | MOCA";
+    },[]);
     return (
         <Fragment>
             <div className="container individual-page">

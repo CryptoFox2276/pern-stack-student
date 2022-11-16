@@ -1,8 +1,11 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 
 const Dashboard = () => {
+    useEffect(()=>{
+        document.title = "MOCA";
+    },[]);
     return (
         <Fragment>
             <div className="container text-center dashboard">

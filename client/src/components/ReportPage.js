@@ -1,8 +1,11 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
 const ReportPage = () => {
+    useEffect(()=>{
+        document.title = "Report | MOCA";
+    },[]);
     return (
         <Fragment>
             <div className="container individual-page">
