@@ -130,7 +130,7 @@ const ReportPage = () => {
   }, []);
 
   const getAllCollects = async () => {
-    const res = await fetch("/collects");
+    const res = await fetch(`/collects?postal_code=${searchPostalCode}`);
     const resArray = await res.json();
     var filteredData = [];
     resArray.map((item) => {
@@ -195,8 +195,6 @@ const ReportPage = () => {
           return (item.count = 100 * (item.count / postalCodes.length));
         });
 
-      console.log(postalCodes);
-
       postalCodes.slice(0, 6).map((item) => {
         buff_labels.push(item.name);
         buff_series.push(item.count);
@@ -215,8 +213,9 @@ const ReportPage = () => {
   const handleOnChangeEndDatePicker = (date) => {
     setEndDatePicker(date);
   };
-  const handleOnChangePostalCode = (code) => {
-    setSearchPostalCode(code);
+  const handleOnChangePostalCode = (e) => {
+    console.log(e.target.value);
+    setSearchPostalCode(e.target.value);
   };
 
   const handleSearch = () => {
@@ -352,15 +351,50 @@ const ReportPage = () => {
                 <tbody bordered="true" hover="true">
                   {collectData.map((item) => (
                     <tr key={item._id}>
-                      <td className="row-title">{item.associate_initial ? item.associate_initial : "-"}</td>
+                      <td className="row-title">
+                        {item.associate_initial ? item.associate_initial : "-"}
+                      </td>
                       <td>{handleDate(item.updated_at)}</td>
-                      <td>{item.first_time_visitor || item.first_time_visitor > 0 ? item.first_time_visitor : "-" }</td>
-                      <td>{item.repeat_visitor || item.repeat_visitor > 0 ? item.repeat_visitor : "-"}</td>
-                      <td>{item.individual_num_youth || item.individual_num_youth > 0 ? item.individual_num_youth : "-"}</td>
-                      <td>{item.individual_num_teen || item.individual_num_teen > 0 ? item.individual_num_teen : "-"}</td>
-                      <td>{item.individual_num_college || item.individual_num_college > 0 ? item.individual_num_college : "-"}</td>
-                      <td>{item.individual_num_adult || item.individual_num_adult > 0 ? item.individual_num_adult : "-"}</td>
-                      <td>{item.individual_num_senior || item.individual_num_senior > 0 ? item.individual_num_senior : "-"}</td>
+                      <td>
+                        {item.first_time_visitor || item.first_time_visitor > 0
+                          ? item.first_time_visitor
+                          : "-"}
+                      </td>
+                      <td>
+                        {item.repeat_visitor || item.repeat_visitor > 0
+                          ? item.repeat_visitor
+                          : "-"}
+                      </td>
+                      <td>
+                        {item.individual_num_youth ||
+                        item.individual_num_youth > 0
+                          ? item.individual_num_youth
+                          : "-"}
+                      </td>
+                      <td>
+                        {item.individual_num_teen ||
+                        item.individual_num_teen > 0
+                          ? item.individual_num_teen
+                          : "-"}
+                      </td>
+                      <td>
+                        {item.individual_num_college ||
+                        item.individual_num_college > 0
+                          ? item.individual_num_college
+                          : "-"}
+                      </td>
+                      <td>
+                        {item.individual_num_adult ||
+                        item.individual_num_adult > 0
+                          ? item.individual_num_adult
+                          : "-"}
+                      </td>
+                      <td>
+                        {item.individual_num_senior ||
+                        item.individual_num_senior > 0
+                          ? item.individual_num_senior
+                          : "-"}
+                      </td>
                       <td>{item.institution ? item.institution : "-"}</td>
                       <td>{item.postal_code ? item.postal_code : "-"}</td>
                       <td>{item.outside_us ? item.outside_us : "-"}</td>

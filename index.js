@@ -22,7 +22,12 @@ if (process.env.NODE_ENV === "production") {
 // get all collects
 app.get("/collects", async (req, res) => {
   try {
-    const allCollects = await pool.query("SELECT * from tb_collect");
+    const {postal_code} = req.query;
+    var query = "SELECT * from tb_collect";
+    if(postal_code !== "") {
+      query += " where postal_code like '%" + postal_code + "%'";
+    }
+    const allCollects = await pool.query(query);
     res.status(200).json(allCollects.rows);
   } catch (err) {
     console.error(err.message);
