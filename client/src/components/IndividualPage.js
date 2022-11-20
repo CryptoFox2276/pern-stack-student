@@ -9,6 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const IndividualPage = () => {
   const selectOption = [
+    { value: "", label: "Select..." },
     { value: "1", label: "1" },
     { value: "2", label: "2" },
     { value: "3", label: "3" },
@@ -39,27 +40,23 @@ const IndividualPage = () => {
     document.title = "Individual | MOCA";
   }, []);
 
-  useEffect(() => {
-    getIndividulas();
-  });
+  // const splitDate = (str) => {
+  //   let date = new Date(str),
+  //     year = date.getFullYear(),
+  //     month = date.getMonth() + 1,
+  //     m = ("0" + month.toString()).substr(-2),
+  //     dt = date.getDate(),
+  //     d = ("0" + dt.toString()).substr(-2);
+  //   return { date: [year, m, d] };
+  // };
 
-  const splitDate = (str) => {
-    let date = new Date(str),
-      year = date.getFullYear(),
-      month = date.getMonth() + 1,
-      m = ("0" + month.toString()).substr(-2),
-      dt = date.getDate(),
-      d = ("0" + dt.toString()).substr(-2);
-    return { date: [year, m, d] };
-  };
-
-  const handleDate = (str) => {
-    let datetime = splitDate(str);
-    return datetime.date.join("-");
-  };
+  // const handleDate = (str) => {
+  //   let datetime = splitDate(str);
+  //   return datetime.date.join("-");
+  // };
 
   const initState = {
-    date: handleDate(new Date()),
+    date: (new Date()),
     associate_initial: "",
     individual_num_youth: "",
     individual_num_teen: "",
@@ -72,6 +69,8 @@ const IndividualPage = () => {
     outside_us: "",
     moca_member: "",
     moca_email: "",
+    collect_type: "individual",
+    institution: "",
   }
 
   const [formData, setFormData] = useState(initState);
@@ -90,15 +89,11 @@ const IndividualPage = () => {
     outside_us,
     moca_member,
     moca_email,
+    collect_type,
+    institution,
   } = formData;
 
-  async function getIndividulas() {
-    
-  }
-
   const handleOnChange = (e, action) => {
-    console.log(action.name, e.value);
-    //   setFormData({ ...formData, [action.name]: e.value });
     formData[action.name] = e.value;
   };
   const handleOnChange1 = (e) => {
@@ -116,7 +111,7 @@ const IndividualPage = () => {
   };
 
   const handleOnChangeDatePicker = (date) => {
-    setFormData({ ...formData, ["date"]: handleDate(date) });
+    setFormData({ ...formData, ["date"]: new Date(date) });
     setDatePicker(date);
   };
 
@@ -126,20 +121,19 @@ const IndividualPage = () => {
   };
 
   const formValidate = () => {
-    console.log(formData);
     if (
       associate_initial === "" ||
-      postal_code == "" ||
-      individual_num_youth == "" ||
-      individual_num_teen == "" ||
-      individual_num_college == "" ||
-      individual_num_adult == "" ||
-      individual_num_senior == "" ||
-      first_time_visitor == "" ||
-      repeat_visitor == "" ||
-      (!isDisabledOutSide && outside_us == "") ||
-      (!isDisabledMoCaMember && moca_member == "") ||
-      moca_email == ""
+      postal_code === "" ||
+      individual_num_youth === "" ||
+      individual_num_teen === "" ||
+      individual_num_college === "" ||
+      individual_num_adult === "" ||
+      individual_num_senior === "" ||
+      first_time_visitor === "" ||
+      repeat_visitor === "" ||
+      (!isDisabledOutSide && outside_us === "") ||
+      (!isDisabledMoCaMember && moca_member === "") ||
+      moca_email === ""
     ) {
       alert("Please fill essential field");
       console.log("Please fill essential field");
@@ -152,7 +146,7 @@ const IndividualPage = () => {
     e.preventDefault();
     try {
       if (!formValidate()) return;
-      await fetch("/individuals", {
+      await fetch("/collects", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -211,6 +205,8 @@ const IndividualPage = () => {
                   <Form.Label className="label-title">Date</Form.Label>
                   <DatePicker
                     id="datepicker"
+                    name="date"
+                    value={date}
                     className="rounded-5 shadow form-control"
                     selected={datePicker}
                     onChange={handleOnChangeDatePicker}

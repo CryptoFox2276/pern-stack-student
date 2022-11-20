@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const GroupPage = () => {
   const selectOption = [
+    { value: "", label: "Select..." },
     { value: "1", label: "1" },
     { value: "2", label: "2" },
     { value: "3", label: "3" },
@@ -37,32 +38,37 @@ const GroupPage = () => {
   const [isDisabledOutSide, setIsDisabledOutSide] = useState(true);
   const [datePicker, setDatePicker] = useState(new Date());
 
-  const splitDate = (str) => {
-    let date = new Date(str),
-      year = date.getFullYear(),
-      month = date.getMonth() + 1,
-      m = ("0" + month.toString()).substr(-2),
-      dt = date.getDate(),
-      d = ("0" + dt.toString()).substr(-2);
-    return { date: [year, m, d] };
-  };
+  // const splitDate = (str) => {
+  //   let date = new Date(str),
+  //     year = date.getFullYear(),
+  //     month = date.getMonth() + 1,
+  //     m = ("0" + month.toString()).substr(-2),
+  //     dt = date.getDate(),
+  //     d = ("0" + dt.toString()).substr(-2);
+  //   return { date: [year, m, d] };
+  // };
 
-  const handleDate = (str) => {
-    let datetime = splitDate(str);
-    return datetime.date.join("-");
-  };
+  // const handleDate = (str) => {
+  //   let datetime = splitDate(str);
+  //   return datetime.date.join("-");
+  // };
 
   const initState = {
-    date: handleDate(new Date()),
+    date: (new Date()),
     associate_initial: "",
     individual_num_youth: "",
     individual_num_teen: "",
     individual_num_college: "",
     individual_num_adult: "",
     individual_num_senior: "",
-    institution: "",
+    first_time_visitor: "0",
+    repeat_visitor: "0",
     postal_code: "",
     outside_us: "",
+    moca_member: "",
+    moca_email: "",
+    collect_type: "group",
+    institution: "",
   };
 
   const [formData, setFormData] = useState(initState);
@@ -75,14 +81,17 @@ const GroupPage = () => {
     individual_num_college,
     individual_num_adult,
     individual_num_senior,
-    institution,
+    first_time_visitor,
+    repeat_visitor,
     postal_code,
     outside_us,
+    moca_member,
+    moca_email,
+    collect_type,
+    institution,
   } = formData;
 
   const handleOnChange = (e, action) => {
-    console.log(action.name, e.value);
-    //   setFormData({ ...formData, [action.name]: e.value });
     formData[action.name] = e.value;
   };
   const handleOnChange1 = (e) => {
@@ -95,7 +104,7 @@ const GroupPage = () => {
   };
 
   const handleOnChangeDatePicker = (date) => {
-    setFormData({ ...formData, ["date"]: handleDate(date) });
+    setFormData({ ...formData, ["date"]: new Date(date) });
     setDatePicker(date);
   };
 
@@ -105,29 +114,16 @@ const GroupPage = () => {
   };
 
   const formValidate = () => {
-    console.log(formData);
-    console.log(
-      date,
-      associate_initial,
-      individual_num_youth,
-      individual_num_teen,
-      individual_num_college,
-      individual_num_adult,
-      individual_num_senior,
-      institution,
-      postal_code,
-      outside_us
-    );
     if (
       associate_initial === "" ||
-      postal_code == "" ||
-      individual_num_youth == "" ||
-      individual_num_teen == "" ||
-      individual_num_college == "" ||
-      individual_num_adult == "" ||
-      individual_num_senior == "" ||
-      institution == "" ||
-      (!isDisabledOutSide && outside_us == "")
+      postal_code === "" ||
+      individual_num_youth === "" ||
+      individual_num_teen === "" ||
+      individual_num_college === "" ||
+      individual_num_adult === "" ||
+      individual_num_senior === "" ||
+      institution === "" ||
+      (!isDisabledOutSide && outside_us === "")
     ) {
       alert("Please fill essential field");
       console.log("Please fill essential field");
@@ -140,7 +136,7 @@ const GroupPage = () => {
     e.preventDefault();
     try {
       if (!formValidate()) return;
-      await fetch("/groups", {
+      await fetch("/collects", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -177,7 +173,7 @@ const GroupPage = () => {
               <div className="col-md-6 col-lg-8">
                 <Form.Group>
                   <Form.Label className="label-title">
-                    Associate Initials
+                    Associate Initials<small> *</small>
                   </Form.Label>
                   <Form.Control
                     as="input"
