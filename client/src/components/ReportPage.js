@@ -222,6 +222,10 @@ const ReportPage = () => {
     getAllCollects();
   };
 
+  const handleOnPrinting = () => {
+    window.print();
+  }
+
   return (
     <Fragment>
       <div className=" individual-page">
@@ -231,7 +235,7 @@ const ReportPage = () => {
               Go Back
             </Button>
           </Link>
-          <Button color="bg-success" className="px-5 bg-success success">
+          <Button color="bg-success" className="px-5 bg-success success" onClick={handleOnPrinting}>
             Print
           </Button>
         </div>
@@ -328,7 +332,7 @@ const ReportPage = () => {
             <div className="text-center pb-2">
               <h2>Collection Data Table</h2>
             </div>
-            <div className="col-12 overflow-scroll">
+            <div className="col-12 overflow-auto">
               <Table striped size="sm">
                 <thead bordered-0="true">
                   <tr>
