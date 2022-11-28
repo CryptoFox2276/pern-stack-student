@@ -272,7 +272,7 @@ const ReportPage = () => {
                   name="postal_code"
                   value={searchPostalCode}
                   className="rounded-5 shadow"
-                  placeholder="Your Answer"
+                  placeholder="Postal Code..."
                   onChange={handleOnChangePostalCode}
                 ></Form.Control>
               </Form.Group>
